@@ -14,7 +14,7 @@ var PeopleSchema = new mongoose.Schema({
     }
 });
 
-const Person = mongoose.model("People", PeopleSchema);
+const Person = mongoose.model("peoples", PeopleSchema);
 
 const PersonModel = {
     createPerson : function( newName ){

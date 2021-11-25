@@ -52,7 +52,7 @@ const PersonController = {
     findByName : function (request,response) {
         let name = request.params.name;
         console.log("HERE", name);
-        
+
         PersonModel
             .getPersonByName(name)
             .then( names => {
@@ -62,23 +62,25 @@ const PersonController = {
             })
     },
 
-    removePerson : function(req, res){
-        People.remove({name:req.params.name},function(err,person){
-            if(err)
-                res.json(err);
-            else
-                res.json({removed:true});
-        })
+    removePerson : function(request, response){
+        let name = request.params.name;
+
+        PersonModel
+        .getPersonByName( name )
+            .then( user => {
+                if( user === null ){
+                    throw new Error( "That user doesn't exist" );
+                }
+                else{
+                    PersonModel
+                        .delete( name )
+                        .then( result => {
+                            response.status( 204 ).end();
+                        });
+                }
+            })
     },
 
-    details: function(req, res){
-        People.findOne({name:req.params.name},function(err,person){
-            if(err)
-                res.json(err);
-            else
-                res.json(person);
-        })
-    }
 }
 
 module.exports = {PersonController};
