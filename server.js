@@ -1,16 +1,11 @@
 const express = require('express');
+require('./server/config/database');
+const {ApiRouter} = require( './server/routes/ApiRouter' );
+
 const app = express();
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
 
-const bodyParser = require('body-parser');
-app.set( 'views', __dirname + '/views' );
-app.set( 'view engine', 'ejs' );
-
-const { PersonRouter } = require("./server/routes/ApiRouter");
-
-app.use('/', PersonRouter);
+app.use( '', ApiRouter );
 
 app.listen( 8080, function(){
-    console.log( "The server is running in port 8080." );
+    console.log( "The users server is running in port 8080." );
 });

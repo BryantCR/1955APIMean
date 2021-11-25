@@ -1,8 +1,11 @@
 const express = require("express");
-const PersonRouter = express.Router();
+const { get } = require("http");
+const ApiRouter = express.Router();
 const {PersonController} = require('./../controllers/ApiController');
 
-PersonRouter
-    .get( '/api', PersonController.allPeople );
 
-module.exports = {PersonRouter}
+ApiRouter
+    .get( '/', PersonController.allPeople );
+ApiRouter
+    .get('/new/:name', PersonController.addname);
+module.exports = {ApiRouter}

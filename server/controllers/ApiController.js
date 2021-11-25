@@ -2,12 +2,18 @@ const {ApiModel} = require('./../models/ApiModel');
 
 const PersonController = {
 
-    allPeople: function(req, res){
+    allPeople: function(req, response){
         ApiModel
-        .getPerson()
+        .getAllNames()
         .then( data => {
-            console.log( data );
-            response.json( { people : data } );
+            let people = data.map(person => {
+                console.log( person );
+                return {
+                    person: person.name
+                }
+            })
+        console.log( people );
+        response.status( 200 ).json( people );
         })
         .catch( err => {
             console.log( "Something went wrong!" );
@@ -16,18 +22,35 @@ const PersonController = {
         })
     },
 
-    addPerson: function(req, res){
-        People.create({name:req.params.name}, function(err, people){
-            if(err){
-                res.json(err);
+    addPerson: function(request, response){
+
+        let name = request.params.name;
+        let created_at = new Date();
+        let updated_at = new Date();
+
+        if(name){
+            newName = {
+                name,
+                created_at,
+                updated_at
             }
-            else{
-                res.json({added:true});
-            }
-        })
+        
+
+            console.log(newName);
+
+            People
+                .createname( newName )
+                .then( result => {
+                    response.status( 201 ).json( result );
+                });
+        }
+        else{
+            response.statusMessage = "You are missing a field to create a new user ('userName')";
+            response.status( 406 ).end();
+        }  
     },
 
-    removePerson: function(req, res){
+    removePerson : function(req, res){
         People.remove({name:req.params.name},function(err,person){
             if(err)
                 res.json(err);

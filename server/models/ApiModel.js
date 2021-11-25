@@ -5,16 +5,22 @@ var PeopleSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 3
+    },
+    created_at : {
+        type : Date,
+    },
+    updated_at : {
+        type : Date,
     }
 });
 
 const Person = mongoose.model("People", PeopleSchema);
 
-const ApiModel = {
-    createPerson : function( newUser ){
-        return Person.create( newUser );
+const PersonModel = {
+    createPerson : function( newName ){
+        return Person.create( newName );
     },
-    getPerson : function(){
+    getAllNames : function(){
         return Person.find();
     },
     getPerson2 : function( animalId ){
@@ -25,4 +31,4 @@ const ApiModel = {
     }
 };
 
-module.exports = {ApiModel};
+module.exports = {PersonModel};
