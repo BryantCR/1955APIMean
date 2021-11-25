@@ -34,7 +34,6 @@ const PersonController = {
                 created_at,
                 updated_at
             }
-        
 
             console.log(newName);
 

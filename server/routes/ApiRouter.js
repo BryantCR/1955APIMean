@@ -7,5 +7,8 @@ const {PersonController} = require('./../controllers/ApiController');
 ApiRouter
     .get( '/', PersonController.allPeople );
 ApiRouter
-    .get('/new/:name', PersonController.addname);
+    .get('/new/:name', PersonController.addPerson);
+
+
+    
 module.exports = {ApiRouter}
