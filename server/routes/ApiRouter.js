@@ -9,7 +9,7 @@ ApiRouter
 ApiRouter
     .get('/new/:name', PersonController.addPerson);
 ApiRouter
-    .delete('/remove/:name', PersonController.removePerson );
+    .get('/remove/:name', PersonController.removePerson );
 ApiRouter
     .get('/:name', PersonController.findByName );
 

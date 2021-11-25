@@ -9,7 +9,9 @@ const PersonController = {
             let people = data.map(person => {
                 console.log( person );
                 return {
-                    person: person.name
+                    person: person.name,
+                    created_at: person.created_at,
+                    updated_at: person.updated_at
                 }
             })
         console.log( people );
@@ -64,12 +66,13 @@ const PersonController = {
 
     removePerson : function(request, response){
         let name = request.params.name;
+        console.log("HERE222 :", name);
 
         PersonModel
-        .getPersonByName( name )
-            .then( user => {
-                if( user === null ){
-                    throw new Error( "That user doesn't exist" );
+            .getPersonByName( name )
+            .then( result => {
+                if( result === null ){
+                    console.log( "Something went wrong!" );
                 }
                 else{
                     PersonModel
