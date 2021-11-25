@@ -1,9 +1,9 @@
-const {ApiModel} = require('./../models/ApiModel');
+const {PersonModel} = require('./../models/ApiModel');
 
 const PersonController = {
 
     allPeople: function(req, response){
-        ApiModel
+    PersonModel
         .getAllNames()
         .then( data => {
             let people = data.map(person => {
@@ -37,8 +37,8 @@ const PersonController = {
 
             console.log(newName);
 
-            People
-                .createname( newName )
+            PersonModel
+                .createPerson( newName )
                 .then( result => {
                     response.status( 201 ).json( result );
                 });
@@ -47,6 +47,19 @@ const PersonController = {
             response.statusMessage = "You are missing a field to create a new user ('userName')";
             response.status( 406 ).end();
         }  
+    },
+
+    findByName : function (request,response) {
+        let name = request.params.name;
+        console.log("HERE", name);
+        
+        PersonModel
+            .getPersonByName(name)
+            .then( names => {
+                let name = names
+                console.log("HERE", name);
+                response.status( 200 ).json( name );
+            })
     },
 
     removePerson : function(req, res){

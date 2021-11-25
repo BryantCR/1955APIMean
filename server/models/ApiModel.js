@@ -23,11 +23,11 @@ const PersonModel = {
     getAllNames : function(){
         return Person.find();
     },
-    getPerson2 : function( animalId ){
-        return Person.findOne({ animalId : animalId });
+    getPersonByName : function( name ){
+        return Person.findOne({ name });
     },
-    delete : function( animalId ){
-        return Person.remove({ animalId : animalId });
+    delete : function( name ){
+        return Person.remove({ name });
     }
 };
 
